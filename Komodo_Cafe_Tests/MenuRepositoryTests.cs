@@ -4,7 +4,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace Komodo_Cafe_Tests
 {
     [TestClass]
-    public class KomodoCafeRepositoryTests
+    public class MenuRepositoryTests
     {
         [TestMethod]
         public void TestMethod1()
