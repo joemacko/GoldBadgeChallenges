@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Komodo_Cafe_Repo;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,7 @@ namespace Komodo_Cafe_Console
 {
     class ProgramUI
     {
+        private MenuRepository _menuRepo = new MenuRepository();
         public void Run()
         {
             UIMenu();
@@ -65,7 +67,32 @@ namespace Komodo_Cafe_Console
         // Create new meal
         private void CreateNewMeal()
         {
+            Console.Clear();
+            Menu newMeal = new Menu();
 
+            // Number
+            Console.WriteLine("Please enter the meal number:");
+            string numberAsString = Console.ReadLine();
+            newMeal.Number = int.Parse(numberAsString);
+
+            // Name
+            Console.WriteLine("Please enter the meal name:");
+            newMeal.Name = Console.ReadLine();
+
+            // Description
+            Console.WriteLine("Please enter the meal description:");
+            newMeal.Description = Console.ReadLine();
+
+            // Ingredients
+            Console.WriteLine("Please enter the meal ingredients:");
+            newMeal.Ingredients = Console.ReadLine();
+
+            // Price
+            Console.WriteLine("Please enter the meal price:");
+            string priceAsString = Console.ReadLine();
+            newMeal.Price = decimal.Parse(numberAsString);
+
+            _menuRepo.AddMenuMeal(newMeal);
         }
 
         // View current saved meals
