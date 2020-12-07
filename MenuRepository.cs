@@ -47,11 +47,11 @@ namespace Komodo_Cafe_Repo
         }
 
         // Helper method
-        private Menu GetMenuMealByName(string name)
+        public Menu GetMenuMealByName(string name)
         {
             foreach (Menu meal in _menuList)
             {
-                if (meal.Name == name)
+                if (meal.Name.ToLower() == name.ToLower())
                 {
                     return meal;
                 }

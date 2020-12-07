@@ -12,6 +12,7 @@ namespace Komodo_Cafe_Console
         private MenuRepository _menuRepo = new MenuRepository();
         public void Run()
         {
+            SeedMenuList();
             UIMenu();
         }
 
@@ -98,19 +99,85 @@ namespace Komodo_Cafe_Console
         // View current saved meals
         private void DisplayAllMeals()
         {
+            Console.Clear();
 
+            List<Menu> menuList = _menuRepo.GetMenuList();
+
+            foreach(Menu meal in menuList)
+            {
+                Console.WriteLine($"Meal name: {meal.Name}\n" +
+                    $"Meal number: {meal.Number}\n" +
+                    $"Description: {meal.Description}\n" +
+                    $"Price: {meal.Price}");
+            }
         }
 
         // View meal by name
         private void ViewMealByName()
         {
+            Console.Clear();
+            // Prompt user to give meal name
+            Console.WriteLine("Enter the name of the meal you'd like to view:");
 
+            // Get user's input
+            string name = Console.ReadLine();
+
+            // Find meal by that name
+            Menu meal = _menuRepo.GetMenuMealByName(name);
+
+            // Display meal if it isn't null
+            if (meal != null)
+            {
+                Console.WriteLine($"Meal number: {meal.Number}\n" +
+                    $"Meal name: {meal.Name}\n" +
+                    $"Description: {meal.Description}\n" +
+                    $"Ingredients: {meal.Ingredients}\n" +
+                    $"Price: {meal.Price}");
+            }
+            else
+            {
+                Console.WriteLine("No meal by that name");
+            }
         }
 
         // Delete existing meal
         private void DeleteExistingMeal()
         {
+            DisplayAllMeals();
 
+            // Get the meal user wants to delete
+            Console.WriteLine("\nEnter the name of the meal you'd like to delete:");
+            string input = Console.ReadLine();
+
+            // Call delete method
+            bool wasDeleted = _menuRepo.RemoveMenuMealFromList(input);
+
+            // If meal was deleted, say so
+            if(wasDeleted)
+            {
+                Console.WriteLine("The meal was successfully deleted from the menu");
+            }
+            // Otherwise state meal couldn't be deleted
+            else
+            {
+                Console.WriteLine("The meal couldn't be deleted");
+            }
+        }
+
+        // Seed method
+        private void SeedMenuList()
+        {
+            Menu cheeseburgMeal = new Menu(1, "Cheeseburger Meal", "Cheeseburger, fries, and a drink", "Beef, bun, cheese, pickles, onions, tomatoes, lettuce, ketchup, mayonnaise, fries, and soda", 6.50m);
+            Menu dubCheeseburgMeal = new Menu(2, "Double Cheeseburger Meal", "Double cheeseburger, fries, and a drink", "Beef, bun, cheese, pickles, onions, tomatoes, lettuce, ketchup, mayonnaise, fries, and soda", 7.50m);
+            Menu cheeseburgDeluxeMeal = new Menu(3, "Cheeseburger Deluxe Meal", "Bacon cheeseburger, fries, and a drink", "Beef, bun, cheese, pickles, onions, tomatoes, lettuce, ketchup, mayonnaise, fries, and soda", 7.00m);
+            Menu dubCheeseburgDeluxeMeal = new Menu(4, "Double Cheeseburger Deluxe Meal", "Double bacon cheeseburger, fries, and a drink", "Beef, bun, cheese, pickles, onions, tomatoes, lettuce, ketchup, mayonnaise, fries, and soda", 8.00m);
+            Menu chickenMeal = new Menu(5, "Chicken Sandwich Meal", "Fried chicken sandwich, fries, and a drink", "Fried chicken patty, bun, pickles, fries, and soda", 7.00m);
+
+            _menuRepo.AddMenuMeal(cheeseburgMeal);
+            _menuRepo.AddMenuMeal(dubCheeseburgMeal);
+            _menuRepo.AddMenuMeal(cheeseburgDeluxeMeal);
+            _menuRepo.AddMenuMeal(dubCheeseburgDeluxeMeal);
+            _menuRepo.AddMenuMeal(chickenMeal);
         }
     }
 }
