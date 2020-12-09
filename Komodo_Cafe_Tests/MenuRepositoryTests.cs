@@ -23,27 +23,35 @@ namespace Komodo_Cafe_Tests
         [TestMethod]
         public void AddToList_ShouldGetNotNull()
         {
-            // Arrange --> Setting up the playing field
-            Menu meal = new Menu();
-            meal.Name = "Barbecue Chicken Meal";
-            MenuRepository repository = new MenuRepository();
+            // Arrange --> Setting up the playing field [TestInitialize]
 
-            // Act --> Get/run the code we want to test
-            repository.AddMenuMeal(meal);
-            Menu mealFromList = repository.GetMenuMealByName("Barbecue Chicken Meal");
+            // Act --> Get/run the code we want to test [TestInitialize]
 
             // Assert --> Use the assert class to verify the expected outcome
-            Assert.IsNotNull(mealFromList);
+            Assert.IsNotNull(_repo);
         }
 
         // Read Method
+        [TestMethod]
+        public void ReadMeal_ShouldGetAreEqual()
+        {
+            // Arrange
+
+            // Act
+            //Menu repoMealCreate = new Menu;
+            //repoMealName = repoMealCreate.Name;
+            //Menu testMealName = _repo.GetMenuMealByName(_meal.Name);
+
+            // Assert
+            //Assert.AreEqual(repoMealName, testMealName);
+        }
 
 
         // Delete Method
         [TestMethod]
         public void DeleteMeal_ShouldReturnTrue()
         {
-            // Arrange
+            // Arrange [TestInitialize]
 
             // Act
             bool deleteResult = _repo.RemoveMenuMealFromList(_meal.Name);

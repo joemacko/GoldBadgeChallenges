@@ -11,7 +11,7 @@ namespace Komodo_Cafe_Repo
         // Field list that holds menu data
         private List<Menu> _menuList = new List<Menu>();
 
-        // Create
+        // Create Menu Meal
         public void AddMenuMeal(Menu meal)
         {
             _menuList.Add(meal);

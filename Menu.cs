@@ -13,19 +13,21 @@ namespace Komodo_Cafe_Repo
         public int Number { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
-        public string Ingredients { get; set; }
+        public List<string> BaseIngredients { get; set; }
+        public List<string> SpecialIngredients { get; set; }
         public decimal Price { get; set; }
 
         // Empty constructor
         public Menu() { }
 
         // Another constructor, this time with parameters assigned
-        public Menu(int number, string name, string description, string ingredients, decimal price)
+        public Menu(int number, string name, string description, List<string> baseIngredients, List<string> specialIngredients, decimal price)
         {
             Number = number;
             Name = name;
             Description = description;
-            Ingredients = ingredients;
+            BaseIngredients = baseIngredients;
+            SpecialIngredients = specialIngredients;
             Price = price;
         }
     }

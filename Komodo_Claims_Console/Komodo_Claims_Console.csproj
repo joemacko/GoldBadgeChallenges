@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{DACC4106-1C1B-4D83-BBAC-D4637267544F}</ProjectGuid>
+    <ProjectGuid>{6881942A-3B37-4705-8F0E-DAA101AD3F92}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>Komodo_Cafe_Console</RootNamespace>
-    <AssemblyName>Komodo_Cafe_Console</AssemblyName>
+    <RootNamespace>Komodo_Claims_Console</RootNamespace>
+    <AssemblyName>Komodo_Claims_Console</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -43,17 +43,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MenuProgram.cs" />
-    <Compile Include="MenuProgramUI.cs" />
+    <Compile Include="ClaimsProgram.cs" />
+    <Compile Include="ClaimsProgramUI.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Komodo_Cafe_Repo.csproj">
-      <Project>{49213ebc-2715-4584-9304-057456ed2d44}</Project>
-      <Name>Komodo_Cafe_Repo</Name>
+    <ProjectReference Include="..\Komodo_Claims_Repo\Komodo_Claims_Repo.csproj">
+      <Project>{66550e92-def3-4ba0-88ef-077c5db13969}</Project>
+      <Name>Komodo_Claims_Repo</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

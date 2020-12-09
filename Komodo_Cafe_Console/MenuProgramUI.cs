@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Komodo_Cafe_Console
 {
-    class ProgramUI
+    class MenuProgramUI
     {
         private MenuRepository _menuRepo = new MenuRepository();
         public void Run()
@@ -86,7 +86,9 @@ namespace Komodo_Cafe_Console
 
             // Ingredients
             Console.WriteLine("Please enter the meal ingredients:");
-            newMeal.Ingredients = Console.ReadLine();
+            string ingredient = Console.ReadLine();
+            List<string> ingredientList = new List<string>();
+            ingredientList.Add(ingredient);
 
             // Price
             Console.WriteLine("Please enter the meal price:");
@@ -131,7 +133,7 @@ namespace Komodo_Cafe_Console
                 Console.WriteLine($"Meal number: {meal.Number}\n" +
                     $"Meal name: {meal.Name}\n" +
                     $"Description: {meal.Description}\n" +
-                    $"Ingredients: {meal.Ingredients}\n" +
+                    $"Ingredients: {meal.BaseIngredients} + {meal.SpecialIngredients}\n" +
                     $"Price: {meal.Price}");
             }
             else
@@ -167,11 +169,15 @@ namespace Komodo_Cafe_Console
         // Seed method
         private void SeedMenuList()
         {
-            Menu cheeseburgMeal = new Menu(1, "Cheeseburger Meal", "Cheeseburger, fries, and a drink", "Beef, bun, cheese, pickles, onions, tomatoes, lettuce, ketchup, mayonnaise, fries, and soda", 6.50m);
-            Menu dubCheeseburgMeal = new Menu(2, "Double Cheeseburger Meal", "Double cheeseburger, fries, and a drink", "Beef, bun, cheese, pickles, onions, tomatoes, lettuce, ketchup, mayonnaise, fries, and soda", 7.50m);
-            Menu cheeseburgDeluxeMeal = new Menu(3, "Cheeseburger Deluxe Meal", "Bacon cheeseburger, fries, and a drink", "Beef, bun, cheese, pickles, onions, tomatoes, lettuce, ketchup, mayonnaise, fries, and soda", 7.00m);
-            Menu dubCheeseburgDeluxeMeal = new Menu(4, "Double Cheeseburger Deluxe Meal", "Double bacon cheeseburger, fries, and a drink", "Beef, bun, cheese, pickles, onions, tomatoes, lettuce, ketchup, mayonnaise, fries, and soda", 8.00m);
-            Menu chickenMeal = new Menu(5, "Chicken Sandwich Meal", "Fried chicken sandwich, fries, and a drink", "Fried chicken patty, bun, pickles, fries, and soda", 7.00m);
+            List<string> baseIngredientList = new List<string> { "beef", "bun", "cheese", "pickles", "onions", "tomatoes", "lettuce", "ketchup", "mayonnaise", "fries", "soda" };
+            List<string> bacon = new List<string> { "bacon" };
+            List<string> chickenMealIngredients = new List<string> { "fried chicken patty, bun, pickles, fries, soda" };
+
+            Menu cheeseburgMeal = new Menu(1, "Cheeseburger Meal", "Cheeseburger, fries, and a drink", baseIngredientList, null, 6.50m);
+            Menu dubCheeseburgMeal = new Menu(2, "Double Cheeseburger Meal", "Double cheeseburger, fries, and a drink", baseIngredientList, null, 7.50m);
+            Menu cheeseburgDeluxeMeal = new Menu(3, "Cheeseburger Deluxe Meal", "Bacon cheeseburger, fries, and a drink", baseIngredientList, bacon, 7.00m);
+            Menu dubCheeseburgDeluxeMeal = new Menu(4, "Double Cheeseburger Deluxe Meal", "Double bacon cheeseburger, fries, and a drink", baseIngredientList, bacon, 8.00m);
+            Menu chickenMeal = new Menu(5, "Chicken Sandwich Meal", "Fried chicken sandwich, fries, and a drink", chickenMealIngredients, null, 7.00m);
 
             _menuRepo.AddMenuMeal(cheeseburgMeal);
             _menuRepo.AddMenuMeal(dubCheeseburgMeal);

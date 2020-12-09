@@ -4,13 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Komodo_Cafe_Console
+namespace Komodo_Claims_Console
 {
-    class Program
+    class ClaimsProgram
     {
         static void Main(string[] args)
         {
-            ProgramUI program = new ProgramUI();
+            ClaimsProgramUI program = new ClaimsProgramUI();
             program.Run();
         }
     }
