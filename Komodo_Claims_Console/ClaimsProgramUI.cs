@@ -13,6 +13,7 @@ namespace Komodo_Claims_Console
         public void Run()
         {
             SeedClaimsList();
+            Menu();
         }
 
         private void SeedClaimsList()
@@ -27,6 +28,62 @@ namespace Komodo_Claims_Console
         }
 
         private void Menu()
+        {
+            bool keepRunning = true;
+            while (keepRunning)
+            {
+                Console.WriteLine("Choose a menu item:\n" +
+                    "1. See all claims\n" +
+                    "2. Take care of next claim\n" +
+                    "3. Enter a new claim\n" +
+                    "4. Exit");
+
+                string input = Console.ReadLine();
+
+                switch (input)
+                {
+                    case "1":
+                        ReadAllClaims();
+                        break;
+                    case "2":
+                        WorkOnNextClaim();
+                        break;
+                    case "3":
+                        AddNewClaim();
+                        break;
+                    case "4":
+                        keepRunning = false;
+                        break;
+                }
+                Console.WriteLine("Press any key to continue...");
+                Console.ReadKey();
+                Console.Clear();
+            }
+        }
+
+        private void ReadAllClaims()
+        {
+            Console.Clear();
+
+            List<Claims> listOfClaims = _claimsRepo.GetAllClaims();
+                foreach(Claims claim in listOfClaims)
+                {
+                    Console.WriteLine($"ClaimID: {claim.ClaimAmount}\n" +
+                        $"Type: {claim.TypeOfClaim}\n" +
+                        $"Description: {claim.Description}\n" +
+                        $"Amount: {claim.ClaimAmount}\n" +
+                        $"DateOfAccident: {claim.DateOfIncident}\n" +
+                        $"DateOfClaim: {claim.DateOfClaim}\n" +
+                        $"IsValid: {claim.IsValid}");
+                }
+        }
+
+        private void WorkOnNextClaim()
+        {
+
+        }
+
+        private void AddNewClaim()
         {
 
         }
