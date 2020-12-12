@@ -8,21 +8,70 @@ namespace Komodo_Claims_Repo
 {
     public class ClaimsRepository
     {
-        private readonly List<Claims> _claimsDirectory = new List<Claims>();
+        private readonly Queue<Claims> _claimsDirectory = new Queue<Claims>();
         private int _claimIDQueue = 0;
 
         // Create Claim Method
         public void AddClaimToDirectory(Claims claim)
         {
             claim.ClaimID = _claimIDQueue + 1;
-            _claimsDirectory.Add(claim);
+            _claimsDirectory.Enqueue(claim);
             _claimIDQueue++;
         }
 
         // Read All Claims Method
-        public List<Claims> GetAllClaims()
+        public Queue<Claims> GetAllClaims()
         {
             return _claimsDirectory;
+        }
+
+        // Update a Claim Method
+        public bool UpdateClaim(int claimID, Claims newClaimInfo)
+        {
+            Claims existingClaim = GetClaimByID(claimID);
+            
+            if (existingClaim != null)
+            {
+                existingClaim.ClaimID = newClaimInfo.ClaimID;
+                existingClaim.TypeOfClaim = newClaimInfo.TypeOfClaim;
+                existingClaim.Description = newClaimInfo.Description;
+                existingClaim.ClaimAmount = newClaimInfo.ClaimAmount;
+                existingClaim.DateOfIncident = newClaimInfo.DateOfIncident;
+                existingClaim.DateOfClaim = newClaimInfo.DateOfClaim;
+
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        // Delete a Claim Method
+        /*public bool RemoveClaimFromDirectory(int claimID)
+        {
+            Claims claimToRemove = GetClaimByID(claimID);
+            /*if (_claimsDirectory.Dequeue(claimToRemove))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }*/
+
+        // Get Claim By ID Method
+        public Claims GetClaimByID(int claimID)
+        {
+            foreach (Claims claim in _claimsDirectory)
+            {
+                if (claim.ClaimID == claimID)
+                {
+                    return claim;
+                }
+            }
+            return null;
         }
     }
 }
