@@ -47,11 +47,11 @@ namespace Komodo_Claims_Repo
             }
         }
 
-        // Delete a Claim Method
+        // Delete a Claim Method - DON'T NEED
         /*public bool RemoveClaimFromDirectory(int claimID)
         {
             Claims claimToRemove = GetClaimByID(claimID);
-            /*if (_claimsDirectory.Dequeue(claimToRemove))
+            if (_claimsDirectory.Remove(claimToRemove))
             {
                 return true;
             }

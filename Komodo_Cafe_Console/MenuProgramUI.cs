@@ -23,12 +23,12 @@ namespace Komodo_Cafe_Console
             while (keepRunning)
             {
                 // Display options to user
-                Console.WriteLine("Please select an option:\n" +
+                Console.WriteLine("Please select an option:\n\n" +
                     "1. Create New Meal\n" +
                     "2. View All Meals\n" +
                     "3. View Meal By Name\n" +
                     "4. Delete Existing Meal\n" +
-                    "5. Exit");
+                    "5. Exit\n");
 
                 // Get user input
                 string input = Console.ReadLine();
@@ -60,7 +60,7 @@ namespace Komodo_Cafe_Console
                         Console.WriteLine("Please enter a number 1-5");
                         break;
                 }
-                Console.WriteLine("Please press any key to continue...");
+                Console.WriteLine("\nPlease press any key to continue...\n");
                 Console.ReadKey();
                 Console.Clear();
             }
@@ -71,29 +71,24 @@ namespace Komodo_Cafe_Console
             Console.Clear();
             Menu newMeal = new Menu();
 
-            // Number
-            Console.WriteLine("Please enter the meal number:");
-            string numberAsString = Console.ReadLine();
-            newMeal.Number = int.Parse(numberAsString);
-
             // Name
-            Console.WriteLine("Please enter the meal name:");
+            Console.WriteLine("Please enter the meal name:\n");
             newMeal.Name = Console.ReadLine();
 
             // Description
-            Console.WriteLine("Please enter the meal description:");
+            Console.WriteLine("\nPlease enter the meal description:\n");
             newMeal.Description = Console.ReadLine();
 
             // Ingredients
-            Console.WriteLine("Please enter the meal ingredients:");
+            Console.WriteLine("\nPlease enter the meal ingredients:\n");
             string ingredient = Console.ReadLine();
             List<string> ingredientList = new List<string>();
             ingredientList.Add(ingredient);
 
             // Price
-            Console.WriteLine("Please enter the meal price:");
+            Console.WriteLine("\nPlease enter the meal price:\n");
             string priceAsString = Console.ReadLine();
-            newMeal.Price = decimal.Parse(numberAsString);
+            newMeal.Price = decimal.Parse(priceAsString);
 
             _menuRepo.AddMenuMeal(newMeal);
         }
@@ -110,7 +105,7 @@ namespace Komodo_Cafe_Console
                 Console.WriteLine($"Meal name: {meal.Name}\n" +
                     $"Meal number: {meal.Number}\n" +
                     $"Description: {meal.Description}\n" +
-                    $"Price: {meal.Price}");
+                    $"Price: ${meal.Price}\n");
             }
         }
 
@@ -119,7 +114,7 @@ namespace Komodo_Cafe_Console
         {
             Console.Clear();
             // Prompt user to give meal name
-            Console.WriteLine("Enter the name of the meal you'd like to view:");
+            Console.WriteLine("Enter the name of the meal you'd like to view:\n");
 
             // Get user's input
             string name = Console.ReadLine();
@@ -130,15 +125,15 @@ namespace Komodo_Cafe_Console
             // Display meal if it isn't null
             if (meal != null)
             {
-                Console.WriteLine($"Meal number: {meal.Number}\n" +
+                Console.WriteLine($"\nMeal number: {meal.Number}\n" +
                     $"Meal name: {meal.Name}\n" +
                     $"Description: {meal.Description}\n" +
-                    $"Ingredients: {meal.BaseIngredients} + {meal.SpecialIngredients}\n" +
-                    $"Price: {meal.Price}");
+                    //$"Ingredients: {meal.BaseIngredients} + {meal.SpecialIngredients}\n" +
+                    $"Price: ${meal.Price}");
             }
             else
             {
-                Console.WriteLine("No meal by that name");
+                Console.WriteLine("\nNo meal by that name");
             }
         }
 
@@ -148,7 +143,7 @@ namespace Komodo_Cafe_Console
             DisplayAllMeals();
 
             // Get the meal user wants to delete
-            Console.WriteLine("\nEnter the name of the meal you'd like to delete:");
+            Console.WriteLine("Enter the name of the meal you'd like to delete:\n");
             string input = Console.ReadLine();
 
             // Call delete method
@@ -157,12 +152,12 @@ namespace Komodo_Cafe_Console
             // If meal was deleted, say so
             if(wasDeleted)
             {
-                Console.WriteLine("The meal was successfully deleted from the menu");
+                Console.WriteLine("\nThe meal was successfully deleted from the menu");
             }
             // Otherwise state meal couldn't be deleted
             else
             {
-                Console.WriteLine("The meal couldn't be deleted");
+                Console.WriteLine("\nThe meal couldn't be deleted");
             }
         }
 

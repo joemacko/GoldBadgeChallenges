@@ -10,11 +10,14 @@ namespace Komodo_Cafe_Repo
     {
         // Field list that holds menu data
         private List<Menu> _menuList = new List<Menu>();
+        private int _menuNumberOrder = 0;
 
         // Create Menu Meal
         public void AddMenuMeal(Menu meal)
         {
+            meal.Number = _menuNumberOrder + 1;
             _menuList.Add(meal);
+            _menuNumberOrder++;
         }
 
         // Read

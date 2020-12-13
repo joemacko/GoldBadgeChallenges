@@ -32,11 +32,12 @@ namespace Komodo_Claims_Console
             bool keepRunning = true;
             while (keepRunning)
             {
-                Console.WriteLine("Choose a menu item:\n" +
+                Console.WriteLine("Choose a menu number:\n\n" +
                     "1. See all claims\n" +
                     "2. Take care of next claim\n" +
                     "3. Enter a new claim\n" +
-                    "4. Exit");
+                    "4. Update an existing claim\n" +
+                    "5. Exit\n\n");
 
                 string input = Console.ReadLine();
 
@@ -58,47 +59,53 @@ namespace Komodo_Claims_Console
                         keepRunning = false;
                         break;
                 }
-                Console.WriteLine("Press any key to continue...");
+                Console.WriteLine("\nPress any key to continue...\n");
                 Console.ReadKey();
                 Console.Clear();
             }
         }
 
-        private void ReadAllClaims()
+        private Queue<Claims> ReadAllClaims()
         {
             Console.Clear();
 
             Queue<Claims> queueOfClaims = _claimsRepo.GetAllClaims();
             foreach (Claims claim in queueOfClaims)
             {
-                Console.WriteLine($"ClaimID: {claim.ClaimAmount}\n" +
+                Console.WriteLine($"ClaimID: {claim.ClaimID}\n" +
                     $"Type: {claim.TypeOfClaim}\n" +
                     $"Description: {claim.Description}\n" +
-                    $"Amount: {claim.ClaimAmount}\n" +
-                    $"DateOfAccident: {claim.DateOfIncident}\n" +
-                    $"DateOfClaim: {claim.DateOfClaim}\n" +
-                    $"IsValid: {claim.IsValid}\n");
+                    $"Amount: ${claim.ClaimAmount}\n" +
+                    $"Date Of Accident: {claim.DateOfIncident.ToShortDateString()}\n" +
+                    $"Date Of Claim: {claim.DateOfClaim.ToShortDateString()}\n" +
+                    $"Is Valid: {claim.IsValid}\n");
             }
+
+            return queueOfClaims;
         }
 
         private void FinishNextClaim()
         {
-            Queue<Claims> queueOfClaims = _claimsRepo.GetAllClaims();
-            foreach (Claims claim in queueOfClaims)
-            {
-                Console.WriteLine($"ClaimID: {claim.ClaimAmount}\n" +
-                    $"Type: {claim.TypeOfClaim}\n" +
-                    $"Description: {claim.Description}\n" +
-                    $"Amount: {claim.ClaimAmount}\n" +
-                    $"DateOfAccident: {claim.DateOfIncident}\n" +
-                    $"DateOfClaim: {claim.DateOfClaim}\n" +
-                    $"IsValid: {claim.IsValid}\n");
-            }
-
-            Console.WriteLine("Press any key to finish next claim...");
+            Queue<Claims> queueOfClaims = ReadAllClaims();
+            Console.WriteLine("Press any key to finish next claim...\n");
             Console.ReadKey();
+            Console.Clear();
 
-            // Claims firstClaim = claim.Peek();
+            Claims firstClaim = queueOfClaims.Peek();
+            Console.WriteLine($"ClaimID: {firstClaim.ClaimID}\n" +
+            $"Type: {firstClaim.TypeOfClaim}\n" +
+            $"Description: {firstClaim.Description}\n" +
+            $"Amount: ${firstClaim.ClaimAmount}\n" +
+            $"Date Of Accident: {firstClaim.DateOfIncident.ToShortDateString()}\n" +
+            $"Date Of Claim: {firstClaim.DateOfClaim.ToShortDateString()}\n" +
+            $"Is Valid: {firstClaim.IsValid}\n");
+
+            Console.WriteLine("Do you want to deal with this claim now (y/n)?\n");
+            bool input = YesOrNo();
+            if (input)
+            {
+                Claims deleteClaim = queueOfClaims.Dequeue();
+            }
         }
 
         private void AddNewClaim()
@@ -106,71 +113,94 @@ namespace Komodo_Claims_Console
             Console.Clear();
             Claims newClaim = new Claims();
 
-            Console.WriteLine("Enter the claim ID:");
+            /*Console.WriteLine("Enter the claim ID:");
             string claimIDAsString = Console.ReadLine();
-            newClaim.ClaimID = int.Parse(claimIDAsString);
+            newClaim.ClaimID = int.Parse(claimIDAsString);*/
 
-            Console.WriteLine("Enter the claim type number:\n" +
+            Console.WriteLine("Enter the claim type number:\n\n" +
                 "1. Car\n" +
                 "2. Home\n" +
-                "3. Theft");
+                "3. Theft\n");
             string claimTypeAsString = Console.ReadLine();
             int claimTypeAsInt = int.Parse(claimTypeAsString);
             newClaim.TypeOfClaim = (ClaimType)claimTypeAsInt;
 
-            Console.WriteLine("Enter a claim description:");
+            Console.WriteLine("\nEnter a claim description:\n");
             newClaim.Description = Console.ReadLine();
 
-            Console.WriteLine("Enter the claim amount:");
+            Console.WriteLine("\nEnter the claim amount:\n");
             string claimAmountAsString = Console.ReadLine();
             newClaim.ClaimAmount = decimal.Parse(claimAmountAsString);
 
-            Console.WriteLine("Enter the incident date (dd/mm/YY):");
+            Console.WriteLine("\nEnter the incident date (dd/mm/YYYY):\n");
             string incidentDateAsString = Console.ReadLine();
             newClaim.DateOfIncident = DateTime.Parse(incidentDateAsString);
 
-            Console.WriteLine("Enter the claim date (dd/mm/YY):");
+            Console.WriteLine("\nEnter the claim date (dd/mm/YYYY):\n");
             string claimDateAsString = Console.ReadLine();
             newClaim.DateOfClaim = DateTime.Parse(claimDateAsString);
+
+            bool validClaim = newClaim.IsValid;
+            if (validClaim == true)
+            {
+                Console.WriteLine("\nThis claim is valid\n");
+            }
+            if (validClaim == false)
+            {
+                Console.WriteLine("\nThis claim is not valid\n");
+            }
+
+            _claimsRepo.AddClaimToDirectory(newClaim);
         }
 
+        // Update a claim
         private void UpdateExistingClaim()
         {
             ReadAllClaims();
-            Console.WriteLine("Enter the ID of the claim you'd like to update:");
+            Console.WriteLine("Enter the ID of the claim you'd like to update:\n");
             int oldClaimID = int.Parse(Console.ReadLine());
 
             Claims newClaim = new Claims();
 
-            Console.WriteLine("Enter the claim ID:");
+            Console.WriteLine("\nEnter the claim ID again:\n");
             string claimIDAsString = Console.ReadLine();
             newClaim.ClaimID = int.Parse(claimIDAsString);
 
-            Console.WriteLine("Enter the claim type number:\n" +
+            Console.WriteLine("\nEnter the claim type number:\n" +
                 "1. Car\n" +
                 "2. Home\n" +
-                "3. Theft");
+                "3. Theft\n");
             string claimTypeAsString = Console.ReadLine();
             int claimTypeAsInt = int.Parse(claimTypeAsString);
             newClaim.TypeOfClaim = (ClaimType)claimTypeAsInt;
 
-            Console.WriteLine("Enter a claim description:");
+            Console.WriteLine("\nEnter a claim description:\n");
             newClaim.Description = Console.ReadLine();
 
-            Console.WriteLine("Enter the claim amount:");
+            Console.WriteLine("\nEnter the claim amount:\n");
             string claimAmountAsString = Console.ReadLine();
             newClaim.ClaimAmount = decimal.Parse(claimAmountAsString);
 
-            Console.WriteLine("Enter the incident date (dd/mm/YY):");
+            Console.WriteLine("\nEnter the incident date (dd/mm/YY):\n");
             string incidentDateAsString = Console.ReadLine();
             newClaim.DateOfIncident = DateTime.Parse(incidentDateAsString);
 
-            Console.WriteLine("Enter the claim date (dd/mm/YY):");
+            Console.WriteLine("\nEnter the claim date (dd/mm/YY):\n");
             string claimDateAsString = Console.ReadLine();
             newClaim.DateOfClaim = DateTime.Parse(claimDateAsString);
 
+            bool validClaim = newClaim.IsValid;
+            if (validClaim == true)
+            {
+                Console.WriteLine("\nThis claim is valid\n");
+            }
+            if (validClaim == false)
+            {
+                Console.WriteLine("\nThis claim is not valid\n");
+            }
+
             // Verify the update worked
-            /*bool wasUpdated = _claimsRepo.UpdateExistingClaim(oldClaimID, newClaim);
+            bool wasUpdated = _claimsRepo.UpdateClaim(oldClaimID, newClaim);
 
             if (wasUpdated)
             {
@@ -179,9 +209,10 @@ namespace Komodo_Claims_Console
             else
             {
                 Console.WriteLine("Could not update claim");
-            }*/
+            }
         }
 
+        // Get Yes/No response from user
         private bool YesOrNo()
         {
             while (true)
@@ -194,7 +225,7 @@ namespace Komodo_Claims_Console
                     case "n":
                         return false;
                     default:
-                        Console.WriteLine("Please enter y for yes or n for no");
+                        Console.WriteLine("\nPlease enter y for yes or n for no\n");
                         break;
                 }
             }
