@@ -104,7 +104,37 @@ namespace Komodo_Insurance_Console
         {
             // Clear console and bring user to EditBadge menu
             Console.Clear();
+            ListAllBadges();
 
+            Console.WriteLine("Enter the number of the badge ID you'd like to update:");
+            int oldBadgeID = int.Parse(Console.ReadLine());
+            _badgeRepo.GetBadgeByID(oldBadgeID);
+            Badge newBadge = new Badge();
+
+            Console.WriteLine($"Badge # has access to doors");
+
+            Console.WriteLine("What would you like to do?\n" +
+                "\n1. Remove a door\n" +
+                "\n2. Add a door\n");
+            string removeOrAdd = Console.ReadLine();
+            switch (removeOrAdd)
+            {
+                case "1":
+                    Console.WriteLine("\nWhich door would you like to remove?\n");
+                    break;
+                    //INSERT LOOP TO FIND DOOR
+                    Console.WriteLine("Door successfully removed");
+                case "2":
+                    Console.WriteLine("\nWhich door would you like to add?\n");
+                    break;
+                    //INSERT LOOP TO FIND DOOR
+                    Console.WriteLine("Door successfully added");
+                default:
+                    Console.WriteLine("\nPlease enter a valid door\n");
+                    break;
+            }
+
+            _badgeRepo.UpdateBadge(oldBadgeID, newBadge);
 
         }
 
