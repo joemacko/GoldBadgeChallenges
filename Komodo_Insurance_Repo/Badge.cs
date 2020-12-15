@@ -10,10 +10,15 @@ namespace Komodo_Insurance_Repo
     public class Badge
     {
         public int BadgeID { get; set; }
-        public List<string> DoorNames { get; set; }
+        public List<string> DoorNames { get; set; } = new List<string>();
 
         // Constructors
         public Badge() { }
+
+        public Badge(int badgeID)
+        {
+            BadgeID = badgeID;
+        }
 
         public Badge(int badgeID, List<string> doorNames)
         {
