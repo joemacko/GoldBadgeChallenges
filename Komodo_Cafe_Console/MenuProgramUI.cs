@@ -86,7 +86,7 @@ namespace Komodo_Cafe_Console
             ingredientList.Add(ingredient);
 
             // Price
-            Console.WriteLine("\nPlease enter the meal price:\n");
+            Console.WriteLine("\nPlease enter the meal price (no $ sign):\n");
             string priceAsString = Console.ReadLine();
             newMeal.Price = decimal.Parse(priceAsString);
 

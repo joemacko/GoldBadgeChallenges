@@ -8,7 +8,7 @@ namespace Komodo_Insurance_Repo
 {
     public class BadgeRepository
     {
-        private Dictionary<int, Badge> _badgeDictionary = new Dictionary<int, Badge>();
+        private readonly Dictionary<int, Badge> _badgeDictionary = new Dictionary<int, Badge>();
         private int _devIDCounter = 0;
 
         // Create a badge method

@@ -37,7 +37,8 @@ namespace Komodo_Insurance_Console
                 Console.WriteLine("Hello Security Admin, what would you like to do?\n\n" +
                     "1. Add a badge\n" +
                     "2. Edit a badge\n" +
-                    "3. List all badges\n");
+                    "3. List all badges\n" +
+                    "4. Exit\n");
 
                 // Evaluate user input
                 string input = Console.ReadLine();
@@ -58,12 +59,12 @@ namespace Komodo_Insurance_Console
                         keepRunning = false;
                         break;
                     default:
-                        Console.WriteLine("Please enter a number 1-4");
+                        Console.WriteLine("\nPlease enter a number 1-4");
                         break;
                 }
 
                 // Clear console and move user to different menu or exit console
-                Console.WriteLine("Please press any key to continue...");
+                Console.WriteLine("\nPlease press any key to continue...");
                 Console.WriteLine();
                 Console.ReadKey();
                 Console.Clear();
@@ -88,12 +89,12 @@ namespace Komodo_Insurance_Console
             string doorAsString = Console.ReadLine();
             string doorAsStringTwo = newBadge.DoorNames.ToString();
             doorAsString = doorAsStringTwo;
-            // List<string> doorAsStringList = doorAsString.ToList<string>;
-            // doorAsString = doorAsStringList.ToString();
-            // string doorAsString = doorAsStringList.ToString();
+            //List<string> doorAsStringList = doorAsString.ToList<string>;
+            //doorAsString = doorAsStringList.ToString();
+            //string doorAsString = doorAsStringList.ToString();
             
 
-            // Ask if there are more doors to add and use YesOrNo loop to add multiple, if needed
+            //Ask if there are more doors to add and use YesOrNo loop to add multiple, if needed
             YesOrNo();
 
             _badgeRepo.CreateNewBadge(newBadge);
@@ -108,10 +109,10 @@ namespace Komodo_Insurance_Console
 
             Console.WriteLine("Enter the number of the badge ID you'd like to update:");
             int oldBadgeID = int.Parse(Console.ReadLine());
-            _badgeRepo.GetBadgeByID(oldBadgeID);
-            Badge newBadge = new Badge();
-
-            Console.WriteLine($"Badge # has access to doors");
+            Badge newBadge = _badgeRepo.GetBadgeByID(oldBadgeID);
+            //string doorNames = newBadge.DoorNames.ToString();
+            
+            //Console.WriteLine($"Badge #{newBadge.BadgeID} has access to doors {doorNames}");
 
             Console.WriteLine("What would you like to do?\n" +
                 "\n1. Remove a door\n" +

@@ -9,7 +9,7 @@ namespace Komodo_Cafe_Repo
     public class MenuRepository
     {
         // Field list that holds menu data
-        private List<Menu> _menuList = new List<Menu>();
+        private readonly List<Menu> _menuList = new List<Menu>();
         private int _menuNumberOrder = 0;
 
         // Create Menu Meal

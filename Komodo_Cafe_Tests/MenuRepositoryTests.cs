@@ -31,25 +31,34 @@ namespace Komodo_Cafe_Tests
             Assert.IsNotNull(_repo);
         }
 
+        // Helper Method
+        [TestMethod]
+        public void GetMealByName_ShouldReturnNotNull()
+        {
+            // Arrange [TestInitialize]
+
+            // Act 
+            Menu helperMeal = _repo.GetMenuMealByName(_meal.Name);
+
+            // Assert
+            Assert.IsNotNull(helperMeal);
+        }
+
         // Read Method
         [TestMethod]
         public void ReadMeal_ShouldGetAreEqual()
         {
             // Arrange
-            //List<Menu>  meal = new MenuRepository(); 
-            
+            Menu newRepoMeal = new Menu(5, "Chicken Sandwich Meal", "Fried chicken sandwich, fries, and a drink", null, null, 7.00m);
+            _repo.AddMenuMeal(newRepoMeal);
 
             // Act
-            //meal = _repo.GetMenuList()
-            //Menu repoMealCreate = new Menu;
-            //repoMealName = repoMealCreate.Name;
-            //Menu testMealName = _repo.GetMenuMealByName(_meal.Name);
+            Menu mealOne = _repo.GetMenuMealByName(_meal.Name);
+            Menu mealTwo = _repo.GetMenuMealByName(newRepoMeal.Name);
 
             // Assert
-            //Assert.AreEqual(repoMealName, testMealName);
-            //Assert.IsNotNull(_repo);
+            Assert.AreEqual(mealOne, mealTwo);
         }
-
 
         // Delete Method
         [TestMethod]
@@ -62,13 +71,6 @@ namespace Komodo_Cafe_Tests
 
             // Assert
             Assert.IsTrue(deleteResult);
-        }
-
-        // Helper Method
-        [TestMethod]
-        public void GetMealByName_ShouldReturnNotNull()
-        {
-            // Arrange [TestInitialize]
         }
     }
 }

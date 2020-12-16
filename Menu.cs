@@ -13,8 +13,8 @@ namespace Komodo_Cafe_Repo
         public int Number { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
-        public List<string> BaseIngredients { get; set; }
-        public List<string> SpecialIngredients { get; set; }
+        public List<string> BaseIngredients { get; set; } = new List<string>();
+        public List<string> SpecialIngredients { get; set; } = new List<string>();
         public decimal Price { get; set; }
 
         // Empty constructor
