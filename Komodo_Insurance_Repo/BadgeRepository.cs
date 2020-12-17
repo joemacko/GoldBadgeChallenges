@@ -11,7 +11,7 @@ namespace Komodo_Insurance_Repo
         private readonly Dictionary<int, Badge> _badgeDictionary = new Dictionary<int, Badge>();
         private int _devIDCounter = 0;
 
-        // Create a badge method
+        // Create A Badge Method
         public void CreateNewBadge(Badge badge)
         {
             badge.BadgeID = _devIDCounter + 1;
@@ -19,13 +19,13 @@ namespace Komodo_Insurance_Repo
             _devIDCounter++;
         }
         
-        // Read all badges method
+        // Read All Badges Method
         public Dictionary<int, Badge> ReadAllBadges()
         {
             return _badgeDictionary;
         }
         
-        // Update a badge method
+        // Update A Badge Method
         public bool UpdateBadge(int badgeID, Badge badge)
         {
             Badge oldBadge = _badgeDictionary[badgeID];
@@ -41,7 +41,7 @@ namespace Komodo_Insurance_Repo
             }
         }
 
-        // Delete a badge method
+        // Delete A Badge Method
         public bool RemoveBadge(int badgeID)
         {
             if (_badgeDictionary.Remove(badgeID))
@@ -51,7 +51,7 @@ namespace Komodo_Insurance_Repo
             return false;
         }
 
-        // Helper
+        // GetBadgeByID Helper Method
         public Badge GetBadgeByID(int badgeID)
         {
             foreach (KeyValuePair<int, Badge> badge in _badgeDictionary)

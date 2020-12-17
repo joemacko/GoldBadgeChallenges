@@ -12,3 +12,5 @@ C:\ElevenFiftyProjects\DotNetProjects\CSharpChallenges\GoldBadgeChallenges\Komod
 C:\ElevenFiftyProjects\DotNetProjects\CSharpChallenges\GoldBadgeChallenges\Komodo_Claims_Tests\obj\Debug\Komodo_Claims_Tests.csproj.CopyComplete
 C:\ElevenFiftyProjects\DotNetProjects\CSharpChallenges\GoldBadgeChallenges\Komodo_Claims_Tests\obj\Debug\Komodo_Claims_Tests.dll
 C:\ElevenFiftyProjects\DotNetProjects\CSharpChallenges\GoldBadgeChallenges\Komodo_Claims_Tests\obj\Debug\Komodo_Claims_Tests.pdb
+C:\ElevenFiftyProjects\DotNetProjects\CSharpChallenges\GoldBadgeChallenges\Komodo_Claims_Tests\bin\Debug\Komodo_Claims_Repo.dll
+C:\ElevenFiftyProjects\DotNetProjects\CSharpChallenges\GoldBadgeChallenges\Komodo_Claims_Tests\bin\Debug\Komodo_Claims_Repo.pdb

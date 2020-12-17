@@ -25,7 +25,7 @@ namespace Komodo_Claims_Repo
             return _claimsDirectory;
         }
 
-        // Update a Claim Method
+        // Update A Claim Method
         public bool UpdateClaim(int claimID, Claims newClaimInfo)
         {
             Claims existingClaim = GetClaimByID(claimID);
