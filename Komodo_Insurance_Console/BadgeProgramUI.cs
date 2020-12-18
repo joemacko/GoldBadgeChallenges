@@ -119,7 +119,7 @@ namespace Komodo_Insurance_Console
             Console.WriteLine("Enter the number of the badge ID you'd like to update:\n");
             int oldBadgeID = int.Parse(Console.ReadLine());
             Badge newBadge = _badgeRepo.GetBadgeByID(oldBadgeID);
-            string newBadgeDoors = newBadge.DoorNames.ToString();
+            newBadge.DoorNames.ToString();
              
             Console.Write($"Badge #{newBadge.BadgeID} has access to doors \n");
             foreach(var item in newBadge.DoorNames)

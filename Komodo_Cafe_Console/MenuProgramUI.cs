@@ -128,8 +128,12 @@ namespace Komodo_Cafe_Console
                 Console.WriteLine($"\nMeal number: {meal.Number}\n" +
                     $"Meal name: {meal.Name}\n" +
                     $"Description: {meal.Description}\n" +
-                    //$"Ingredients: {meal.BaseIngredients} + {meal.SpecialIngredients}\n" +
                     $"Price: ${meal.Price}");
+                Console.Write($"Ingredients: ");
+                foreach(var baseIngredient in meal.BaseIngredients)
+                {
+                    Console.Write(baseIngredient + ", ");
+                }
             }
             else
             {
