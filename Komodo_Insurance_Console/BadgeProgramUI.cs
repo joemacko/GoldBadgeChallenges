@@ -79,23 +79,32 @@ namespace Komodo_Insurance_Console
 
             Badge newBadge = new Badge();
 
-            // Convert user input for badgeNumber to an int
-            // Console.WriteLine("What is the number on the badge?\n");
-            // int badgeNumber = int.Parse(Console.ReadLine());
-            // newBadge.BadgeID = badgeNumber;
-
             // Get user input on a door the badge needs access to
             Console.WriteLine("List a door that the badge needs access to:\n");
-            string doorAsString = Console.ReadLine();
-            string doorAsStringTwo = newBadge.DoorNames.ToString();
-            doorAsString = doorAsStringTwo;
-            //List<string> doorAsStringList = doorAsString.ToList<string>;
-            //doorAsString = doorAsStringList.ToString();
-            //string doorAsString = doorAsStringList.ToString();
-            
+            string doorName = Console.ReadLine();
+            newBadge.DoorNames.Add(doorName);
 
-            //Ask if there are more doors to add and use YesOrNo loop to add multiple, if needed
-            YesOrNo();
+            //Ask if there are more doors to add
+            bool keepRunning = true;
+            while (keepRunning)
+            {
+                Console.WriteLine("\nAny other doors (y/n)?\n");
+                string input = Console.ReadLine().ToLower();
+                switch (input)
+                {
+                    case "y":
+                        Console.WriteLine("\nList a door that the badge needs access to:\n");
+                        string doorNameNext = Console.ReadLine();
+                        newBadge.DoorNames.Add(doorNameNext);
+                        break;
+                    case "n":
+                        keepRunning = false;
+                        break;
+                    default:
+                        Console.WriteLine("\nPlease enter y for yes or n for no\n");
+                        break;
+                }
+            }
 
             _badgeRepo.CreateNewBadge(newBadge);
         }
@@ -107,12 +116,17 @@ namespace Komodo_Insurance_Console
             Console.Clear();
             ListAllBadges();
 
-            Console.WriteLine("Enter the number of the badge ID you'd like to update:");
+            Console.WriteLine("Enter the number of the badge ID you'd like to update:\n");
             int oldBadgeID = int.Parse(Console.ReadLine());
             Badge newBadge = _badgeRepo.GetBadgeByID(oldBadgeID);
-            //string doorNames = newBadge.DoorNames.ToString();
-            
-            //Console.WriteLine($"Badge #{newBadge.BadgeID} has access to doors {doorNames}");
+            string newBadgeDoors = newBadge.DoorNames.ToString();
+             
+            Console.Write($"Badge #{newBadge.BadgeID} has access to doors \n");
+            foreach(var item in newBadge.DoorNames)
+            {
+                Console.Write(item + " ");
+            }
+            Console.WriteLine();
 
             Console.WriteLine("What would you like to do?\n" +
                 "\n1. Remove a door\n" +
@@ -122,21 +136,36 @@ namespace Komodo_Insurance_Console
             {
                 case "1":
                     Console.WriteLine("\nWhich door would you like to remove?\n");
+                    string doorToRemove = Console.ReadLine();
+                    bool doorRemoved = _badgeRepo.RemoveDoorFromBadge(oldBadgeID, doorToRemove);
+                    if (doorRemoved)
+                    {
+                        Console.WriteLine("Door successfully removed");
+                    }
+                    else
+                    {
+                        Console.WriteLine("Could not remove door");
+                    }
                     break;
-                    //INSERT LOOP TO FIND DOOR
-                    Console.WriteLine("Door successfully removed");
                 case "2":
                     Console.WriteLine("\nWhich door would you like to add?\n");
+                    string doorToAdd = Console.ReadLine();
+                    bool doorAdded = _badgeRepo.AddDoorToBadge(oldBadgeID, doorToAdd);
+                    if (doorAdded)
+                    {
+                        Console.WriteLine("Door successfully added");
+                    }
+                    else
+                    {
+                        Console.WriteLine("Could not add door");
+                    }
                     break;
-                    //INSERT LOOP TO FIND DOOR
-                    Console.WriteLine("Door successfully added");
                 default:
                     Console.WriteLine("\nPlease enter a valid door\n");
                     break;
             }
 
             _badgeRepo.UpdateBadge(oldBadgeID, newBadge);
-
         }
 
         // Read all badges
@@ -148,38 +177,16 @@ namespace Komodo_Insurance_Console
             foreach (var badge in allBadges)
             {
                 int badgeid = badge.Key;
-                List<string> doorAccess = badge.Value.DoorNames;
 
                 Console.WriteLine($"Badge #: {badgeid}");
                 Console.Write("Access to Doors: ");
 
-                foreach (var door in doorAccess)
+                foreach (var door in badge.Value.DoorNames)
                 {
                     Console.Write(door + " ");
                 }
                 Console.WriteLine();
                 Console.WriteLine();
-            }
-        }
-
-        // Get Yes/No response from user
-        private bool YesOrNo()
-        {
-            while (true)
-            {
-                Console.WriteLine("\nAny other doors (y/n)?\n");
-                string input = Console.ReadLine().ToLower();
-                switch (input)
-                {
-                    case "y":
-                        Console.WriteLine("\nList a door that the badge needs access to:\n");
-                        return true;
-                    case "n":
-                        return false;
-                    default:
-                        Console.WriteLine("\nPlease enter y for yes or n for no\n");
-                        break;
-                }
             }
         }
     }

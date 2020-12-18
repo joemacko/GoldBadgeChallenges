@@ -8,15 +8,15 @@ namespace Komodo_Insurance_Repo
 {
     public class BadgeRepository
     {
-        private readonly Dictionary<int, Badge> _badgeDictionary = new Dictionary<int, Badge>();
-        private int _devIDCounter = 0;
+        public Dictionary<int, Badge> _badgeDictionary = new Dictionary<int, Badge>();
+        private int _badgeIDCounter = 0;
 
         // Create A Badge Method
         public void CreateNewBadge(Badge badge)
         {
-            badge.BadgeID = _devIDCounter + 1;
+            badge.BadgeID = _badgeIDCounter + 1;
             _badgeDictionary.Add(badge.BadgeID, badge);
-            _devIDCounter++;
+            _badgeIDCounter++;
         }
         
         // Read All Badges Method
@@ -51,7 +51,7 @@ namespace Komodo_Insurance_Repo
             return false;
         }
 
-        // GetBadgeByID Helper Method
+        // Get Badge By ID Helper Method
         public Badge GetBadgeByID(int badgeID)
         {
             foreach (KeyValuePair<int, Badge> badge in _badgeDictionary)
@@ -65,6 +65,38 @@ namespace Komodo_Insurance_Repo
                 }
             }
             return null;
+        }
+
+        // Add Door To Badge Helper Method
+        public bool AddDoorToBadge(int badgeID, string doorName)
+        {
+            Badge badge = GetBadgeByID(badgeID);
+
+            foreach (string door in badge.DoorNames)
+            {
+                if (door == doorName)
+                {
+                    badge.DoorNames.Add(door);
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        // Remove Door From Badge Helper Method
+        public bool RemoveDoorFromBadge(int badgeID, string doorName)
+        {
+            Badge badge = GetBadgeByID(badgeID);
+
+            foreach (string door in badge.DoorNames)
+            {
+                if (door == doorName)
+                {
+                    badge.DoorNames.Remove(door);
+                    return true;
+                }
+            }
+            return false;
         }
     }
 }

@@ -15,12 +15,10 @@ namespace Komodo_Claims_Tests
         public void Arrange()
         {
             _repo = new ClaimsRepository();
-            _claim = new Queue<Claims>();
 
             Claims claimFirst = new Claims(1, ClaimType.Home, "Broken window", 200.00m, new DateTime(2020, 12, 12), new DateTime(2020, 12, 16));
 
             _repo.AddClaimToDirectory(claimFirst);
-            _claim.Enqueue(claimFirst);
         }
 
         // Create Claim Method
@@ -41,7 +39,7 @@ namespace Komodo_Claims_Tests
         public void GetClaimByID_ShouldGetNotNull()
         {
             // Arrange [TestInitialize]
-            Claims claim = _claim.Peek(); // _repo.queue of claims method.peek
+            Claims claim = _repo.GetAllClaims().Peek(); 
             int claimbyID = claim.ClaimID;
 
             // Act
@@ -57,7 +55,6 @@ namespace Komodo_Claims_Tests
         {
             // Arrange
             Claims newClaim = new Claims(1, ClaimType.Home, "Broken window", 200.00m, new DateTime(2020, 12, 12), new DateTime(2020, 12, 16));
-            _claim.Enqueue(newClaim);
             _repo.AddClaimToDirectory(newClaim);
 
             // Act
@@ -74,7 +71,6 @@ namespace Komodo_Claims_Tests
         {
             // Arrange
             Claims oldClaim = new Claims(1, ClaimType.Car, "Broken window", 200.00m, new DateTime(2020, 12, 12), new DateTime(2020, 12, 16));
-            _claim.Enqueue(oldClaim);
             _repo.AddClaimToDirectory(oldClaim);
 
             // Act
